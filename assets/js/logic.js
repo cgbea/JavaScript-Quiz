@@ -16,6 +16,7 @@ function startTimer() {
     timer = setInterval(function() {
       timerCount--;
       timerElement.textContent = timerCount;
+        
     //   if (timerCount >= 0) {
     //     // Tests if win condition is met
     //     if (isWin && timerCount > 0) {
