@@ -21,6 +21,6 @@ var questions = [
   },
   {
     question: "It's week six of your coding course and you're finding JavaScript harder than ever. What should you do?",
-    choices: ["Give up. You'll probably never get it.", "Complain about the course materials", "Relax, this is just the Dunning–Kruger effect. Things will get better."],
+    choices: ["Give up. You'll probably never get it.", "Complain about the course materials.", "Relax, this is just the Dunning–Kruger effect. Things will get better."],
     correct: 2
   }]

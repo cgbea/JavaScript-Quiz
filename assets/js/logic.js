@@ -1,5 +1,6 @@
 var timerElement = document.querySelector("#time");
 var startButton = document.querySelector("#start");
+var finalScore = document.querySelector("#final-score")
 
 var timerCount;
 // The startGame function is called when the start button is clicked
@@ -12,23 +13,6 @@ function startGame() {
   toggleQuestions();
 }
 
-function removeStartScreen() {
-  var startScreen = document.querySelector("#start-screen");
-  startScreen.classList.replace("start", "hide");
-}
-
-function toggleQuestions() {
-  var toggleQs = document.getElementById("questions");
-  toggleQs.classList.toggle("hide");
-}
-function toggleFB() {
-  var toggleFB = document.getElementById("feedback");
-  toggleFB.classList.toggle("hide");
-}
-// function toggleFeedback(){
-//   var toggleFB = document.getElementById("feedback");
-//   toggleFB.classList.toggle("hide");
-// }
 
 // The setTimer function starts and stops the timer and triggers winGame() and loseGame()
 function startTimer() {
@@ -54,6 +38,23 @@ function startTimer() {
   }, 1000);
 }
 
+function removeStartScreen() {
+  var startScreen = document.querySelector("#start-screen");
+  startScreen.classList.replace("start", "hide");
+}
+
+function toggleQuestions() {
+  var toggleQs = document.getElementById("questions");
+  toggleQs.classList.toggle("hide");
+}
+function toggleFB() {
+  var toggleFB = document.getElementById("feedback");
+  toggleFB.classList.toggle("hide");
+}
+// function toggleFeedback(){
+//   var toggleFB = document.getElementById("feedback");
+//   toggleFB.classList.toggle("hide");
+// }
 // Attach event listener to start button to call startGame function on click
 startButton.addEventListener("click", startGame);
 
@@ -77,7 +78,8 @@ function checkAnswer(selected) {
     toggleFB();
   } else {
     feedback.textContent = "Incorrect!"
-    toggleFB();;
+    toggleFB();
+    timerCount = timerCount - 10;
   }
   
   setTimeout(function () {
@@ -87,9 +89,11 @@ function checkAnswer(selected) {
       showQuestion();
     } else {
       toggleQuestions();
+      toggleFB();
       toggleEnd();
+      clearInterval(timer);
     }
-  }, 2000);
+  }, 1000);
   toggleFB;
 }
 
@@ -98,4 +102,5 @@ showQuestion();
 function toggleEnd() {
   var toggleEnd = document.getElementById("end-screen");
   toggleEnd.classList.toggle("hide");
+  finalScore.textContent = timerCount;
 }
