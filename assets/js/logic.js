@@ -7,8 +7,28 @@ function startGame() {
     timerCount = 75;
     // Prevents start button from being clicked when round is in progress
     startButton.disabled = true;
-    startTimer()
+    startTimer();
+    removeStartScreen();
+    toggleQuestions();
 }
+
+function removeStartScreen() {
+  var startScreen = document.querySelector("#start-screen");
+  startScreen.classList.replace("start", "hide");
+}
+
+function toggleQuestions(questions){
+  var toggleQs = document.getElementById("questions");
+  toggleQs.classList.toggle("hide");
+}
+function toggleFB(feedback){
+  var toggleFB = document.getElementById("feedback");
+  toggleFB.classList.toggle("hide");
+}
+// function toggleFeedback(){
+//   var toggleFB = document.getElementById("feedback");
+//   toggleFB.classList.toggle("hide");
+// }
 
 // The setTimer function starts and stops the timer and triggers winGame() and loseGame()
 function startTimer() {
@@ -32,7 +52,46 @@ function startTimer() {
         alert("if okay, change this function into displayScore");
       }
     }, 1000);
-  }
-  
-  // Attach event listener to start button to call startGame function on click
+  };
+
+    // Attach event listener to start button to call startGame function on click
 startButton.addEventListener("click", startGame);
+  
+  let currentQuestion = 0;
+
+  function showQuestion() {
+    const questionTitle = document.getElementById("question-title");
+    questionTitle.textContent = questions[currentQuestion].question;
+    const choices = document.querySelectorAll("#choices");
+    choices.forEach(function(choices, i) {
+      choices.textContent = questions[currentQuestion].choices[i];
+    });
+    const feedback = document.getElementById("feedback");
+    feedback.textContent = "";
+  }
+
+  function checkAnswer(selected) {
+    const feedback = document.getElementById("feedback");
+    if (selected === questions[currentQuestion].correct) {
+      feedback.textContent = "Correct!";
+      toggleFB();
+    } else {
+      feedback.textContent = "Incorrect!";
+    }
+    setTimeout(function() {
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        showQuestion();
+      } else {
+        toggleEnd();
+      }
+  }, 2000);
+  
+  }
+
+
+
+function toggleEnd(){
+  var toggleEnd = document.getElementById("end-screen");
+  toggleEnd.classList.toggle("hide");
+}

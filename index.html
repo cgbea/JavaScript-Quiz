@@ -26,8 +26,14 @@
       </div>
 
       <div id="questions" class="hide">
-        <h2 id="question-title"></h2>
-        <div id="choices" class="choices"></div>
+        <h2 id="question-title">
+          Which of these methods would I use to return the element '#button'?
+        </h2>
+        <div id="choices" class="choices">
+          <button class="choice" onclick="checkAnswer(0)">getElementById()</button>
+          <button class="choice" onclick="checkAnswer(1)">getElementsByClassName()</button>
+          <button class="choice" onclick="checkAnswer(2)">querySelectorAll()</button>
+        </div>
       </div>
 
       <div id="end-screen" class="hide">
