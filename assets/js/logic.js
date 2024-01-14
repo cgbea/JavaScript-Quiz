@@ -4,12 +4,12 @@ var startButton = document.querySelector("#start");
 var timerCount;
 // The startGame function is called when the start button is clicked
 function startGame() {
-    timerCount = 75;
-    // Prevents start button from being clicked when round is in progress
-    startButton.disabled = true;
-    startTimer();
-    removeStartScreen();
-    toggleQuestions();
+  timerCount = 75;
+  // Prevents start button from being clicked when round is in progress
+  startButton.disabled = true;
+  startTimer();
+  removeStartScreen();
+  toggleQuestions();
 }
 
 function removeStartScreen() {
@@ -17,11 +17,11 @@ function removeStartScreen() {
   startScreen.classList.replace("start", "hide");
 }
 
-function toggleQuestions(questions){
+function toggleQuestions() {
   var toggleQs = document.getElementById("questions");
   toggleQs.classList.toggle("hide");
 }
-function toggleFB(feedback){
+function toggleFB() {
   var toggleFB = document.getElementById("feedback");
   toggleFB.classList.toggle("hide");
 }
@@ -32,11 +32,11 @@ function toggleFB(feedback){
 
 // The setTimer function starts and stops the timer and triggers winGame() and loseGame()
 function startTimer() {
-    // Sets timer
-    timer = setInterval(function() {
-      timerCount--;
-      timerElement.textContent = timerCount;
-        
+  // Sets timer
+  timer = setInterval(function () {
+    timerCount--;
+    timerElement.textContent = timerCount;
+
     //   if (timerCount >= 0) {
     //     // Tests if win condition is met
     //     if (isWin && timerCount > 0) {
@@ -45,53 +45,57 @@ function startTimer() {
     //       winGame();
     //     }
     //   }
-      // Tests if time has run out
-      if (timerCount === 0) {
-        // Clears interval
-        clearInterval(timer);
-        alert("if okay, change this function into displayScore");
-      }
-    }, 1000);
-  };
-
-    // Attach event listener to start button to call startGame function on click
-startButton.addEventListener("click", startGame);
-  
-  let currentQuestion = 0;
-
-  function showQuestion() {
-    const questionTitle = document.getElementById("question-title");
-    questionTitle.textContent = questions[currentQuestion].question;
-    const choices = document.querySelectorAll("#choices");
-    choices.forEach(function(choices, i) {
-      choices.textContent = questions[currentQuestion].choices[i];
-    });
-    const feedback = document.getElementById("feedback");
-    feedback.textContent = "";
-  }
-
-  function checkAnswer(selected) {
-    const feedback = document.getElementById("feedback");
-    if (selected === questions[currentQuestion].correct) {
-      feedback.textContent = "Correct!";
-      toggleFB();
-    } else {
-      feedback.textContent = "Incorrect!";
+    // Tests if time has run out
+    if (timerCount === 0) {
+      // Clears interval
+      clearInterval(timer);
+      alert("if okay, change this function into displayScore");
     }
-    setTimeout(function() {
-      currentQuestion++;
-      if (currentQuestion < questions.length) {
-        showQuestion();
-      } else {
-        toggleEnd();
-      }
-  }, 2000);
-  
+  }, 1000);
+}
+
+// Attach event listener to start button to call startGame function on click
+startButton.addEventListener("click", startGame);
+
+let currentQuestion = 0;
+
+function showQuestion() {
+  const questionTitle = document.getElementById("question-title");
+  questionTitle.textContent = questions[currentQuestion].question;
+  const choices = document.querySelectorAll(".choice");
+  choices.forEach(function (choice, i) {
+    choice.textContent = questions[currentQuestion].choices[i];
+  });
+  const feedback = document.getElementById("feedback");
+  feedback.textContent = "";
+}
+
+function checkAnswer(selected) {
+  const feedback = document.getElementById("feedback");
+  if (selected === questions[currentQuestion].correct) {
+    feedback.textContent = "Correct!";
+    toggleFB();
+  } else {
+    feedback.textContent = "Incorrect!"
+    toggleFB();;
   }
+  
+  setTimeout(function () {
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+      toggleFB();
+      showQuestion();
+    } else {
+      toggleQuestions();
+      toggleEnd();
+    }
+  }, 2000);
+  toggleFB;
+}
 
+showQuestion();
 
-
-function toggleEnd(){
+function toggleEnd() {
   var toggleEnd = document.getElementById("end-screen");
   toggleEnd.classList.toggle("hide");
 }
