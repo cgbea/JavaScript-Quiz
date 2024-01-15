@@ -1,7 +1,8 @@
-const highScoresList = document.getElementById("highscores");
-const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-const clearButton = document.getElementById("clear");
+var highScoresList = document.getElementById("highscores");
+var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+var clearButton = document.getElementById("clear");
 
+// Creating the leaderboard out of the localStorage array
 highScoresList.innerHTML = highScores
   .map(function (score) {
     return (

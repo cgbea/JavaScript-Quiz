@@ -6,6 +6,34 @@ var yaySound = new Audio("./assets/sfx/correct.wav");
 var booSound = new Audio("./assets/sfx/incorrect.wav");
 var timerCount;
 
+
+//Functions for switching between views
+
+function removeStartScreen() {
+  var startScreen = document.querySelector("#start-screen");
+  startScreen.classList.replace("start", "hide");
+}
+
+function toggleQuestions() {
+  var toggleQs = document.getElementById("questions");
+  toggleQs.classList.toggle("hide");
+}
+
+function toggleFB() {
+  var toggleFB = document.getElementById("feedback");
+  toggleFB.classList.toggle("hide");
+}
+
+function toggleEnd() {
+  var toggleEnd = document.getElementById("end-screen");
+  toggleEnd.classList.toggle("hide");
+  finalScore.textContent = timerCount;
+}
+
+//Progressing through the questions
+
+startButton.addEventListener("click", startGame);
+
 function startGame() {
   timerCount = 75;
   startButton.disabled = true;
@@ -25,23 +53,6 @@ function startTimer() {
     }
   }, 1000);
 }
-
-function removeStartScreen() {
-  var startScreen = document.querySelector("#start-screen");
-  startScreen.classList.replace("start", "hide");
-}
-
-function toggleQuestions() {
-  var toggleQs = document.getElementById("questions");
-  toggleQs.classList.toggle("hide");
-}
-
-function toggleFB() {
-  var toggleFB = document.getElementById("feedback");
-  toggleFB.classList.toggle("hide");
-}
-
-startButton.addEventListener("click", startGame);
 
 let currentQuestion = 0;
 
@@ -83,27 +94,16 @@ function checkAnswer(selected) {
   }, 1000);
 }
 
-function toggleEnd() {
-  var toggleEnd = document.getElementById("end-screen");
-  toggleEnd.classList.toggle("hide");
-  finalScore.textContent = timerCount;
-}
+
+//Gathering user information and score in localStorage for the leaderboard
 
 submit.addEventListener("click", saveHighScore);
 
-function getInitials() {
-  return localStorage.getItem("userInitials");
-}
-
-function getScore() {
-  return localStorage.getItem("score");
-}
-
 var initials = document.getElementById("initials");
 
-const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
-const maxHighscores = 5;
+var maxHighscores = 5;
 
 function saveHighScore() {
   var score = {
