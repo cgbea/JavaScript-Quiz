@@ -1,6 +1,7 @@
 var timerElement = document.querySelector("#time");
 var startButton = document.querySelector("#start");
 var finalScore = document.querySelector("#final-score")
+var submit = document.querySelector("#submit")
 
 var timerCount;
 // The startGame function is called when the start button is clicked
@@ -33,7 +34,7 @@ function startTimer() {
     if (timerCount === 0) {
       // Clears interval
       clearInterval(timer);
-      alert("if okay, change this function into displayScore");
+      alert("You ran out of time! Refresh the page to start again.");
     }
   }, 1000);
 }
@@ -103,4 +104,56 @@ function toggleEnd() {
   var toggleEnd = document.getElementById("end-screen");
   toggleEnd.classList.toggle("hide");
   finalScore.textContent = timerCount;
+  
 }
+
+
+
+submit.addEventListener("click", saveHighScore);
+
+function getInitials() {
+  return localStorage.getItem("userInitials");
+}
+function getScore() {
+  return localStorage.getItem("score");
+}
+// function updateHTML() {
+//   var initials = getInitials();
+//   var score = getScore();
+//   document.getElementById("highscores").innerHTML = initals + " scored " + score;
+// }
+
+var initials = document.getElementById("initials");
+
+
+const highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+
+const maxHighscores = 5;
+
+function saveHighScore() {
+  var score = {
+      score: timerCount,
+      initials: initials.value,
+  };
+  
+  highScores.push(score);
+  highScores.sort(function(a, b) {
+      return b.score - a.score;
+  });
+  highScores.splice(maxHighscores);
+
+  localStorage.setItem('highScores', JSON.stringify(highScores));
+}
+
+
+// function getInput() {
+//   // Gets input value
+
+//   }
+//   // Saves data to retrieve later
+//   localStorage.setItem("userInitials", initials);
+//   localStorage.setItem("userScore", timerCount)
+//   // https://stackoverflow.com/questions/52505323/save-input-value-to-local-storage-and-retrieve-it-on-a-different-page
+//   // // Updates HTML
+//   updateHTML();
+// }
