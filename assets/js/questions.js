@@ -6,7 +6,7 @@ var questions = [
     },
     {
       question: "Which syntax accesses the domain's local storage object and adds a data item to it?",
-      choices: ["localStorage.setItem()", "localStorage.saveItem()", "localStorage.getItem"],
+      choices: ["localStorage.setItem()", "localStorage.saveItem()", "localStorage.getItem()"],
       correct: 0
     },
     {
